@@ -100,6 +100,36 @@ enable_datadog_permissions = true
 
 ---
 
+
+## Usage (Terraform Registry)
+
+Once published, the module can be consumed like this:
+
+```hcl
+module "bootstrap" {
+  source  = "Public-Cloud-Group/bootstrap/aws"
+  version = "1.0.0"
+
+  aws_account_id = var.aws_account_id
+  region         = var.region
+  oidc_repo      = "myorg/myrepo:*"
+}
+```
+
+---
+
+## Versioning
+
+This module uses semantic versioning.
+Always pin a version:
+
+```hcl
+version = "1.0.0"
+```
+
+---
+
+
 ## Inputs
 
 | Name                              | Type   | Default                      | Description                                                                 |
@@ -133,7 +163,7 @@ enable_datadog_permissions = true
 ---
 
 
-# Using This Module in a Root Terraform Configuration
+## Using This Module in a Root Terraform Configuration
 
 This module must be run in **two phases** because the remote backend (S3 and optional DynamoDB) does not exist until after the first `terraform apply`.
 
@@ -156,7 +186,8 @@ live/
 
 ```hcl
 module "bootstrap" {
-  source = "github.com/Public-Cloud-Group/terraform-aws-bootstrap"
+  source  = "Public-Cloud-Group/bootstrap/aws"
+  version = "1.0.0"
 
   aws_account_id          = var.aws_account_id
   region                  = var.region
